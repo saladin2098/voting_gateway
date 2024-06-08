@@ -30,9 +30,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PublicServiceClient interface {
-	CreatePublic(ctx context.Context, in *Public, opts ...grpc.CallOption) (*Void, error)
+	CreatePublic(ctx context.Context, in *PublicCreate, opts ...grpc.CallOption) (*Void, error)
 	DeletePublic(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Void, error)
-	UpdatePublic(ctx context.Context, in *Public, opts ...grpc.CallOption) (*Void, error)
+	UpdatePublic(ctx context.Context, in *PublicCreate, opts ...grpc.CallOption) (*Void, error)
 	GetByIdPublic(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Public, error)
 	GetAllPublics(ctx context.Context, in *Filter, opts ...grpc.CallOption) (*GetAllPublic, error)
 }
@@ -45,7 +45,7 @@ func NewPublicServiceClient(cc grpc.ClientConnInterface) PublicServiceClient {
 	return &publicServiceClient{cc}
 }
 
-func (c *publicServiceClient) CreatePublic(ctx context.Context, in *Public, opts ...grpc.CallOption) (*Void, error) {
+func (c *publicServiceClient) CreatePublic(ctx context.Context, in *PublicCreate, opts ...grpc.CallOption) (*Void, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Void)
 	err := c.cc.Invoke(ctx, PublicService_CreatePublic_FullMethodName, in, out, cOpts...)
@@ -65,7 +65,7 @@ func (c *publicServiceClient) DeletePublic(ctx context.Context, in *ById, opts .
 	return out, nil
 }
 
-func (c *publicServiceClient) UpdatePublic(ctx context.Context, in *Public, opts ...grpc.CallOption) (*Void, error) {
+func (c *publicServiceClient) UpdatePublic(ctx context.Context, in *PublicCreate, opts ...grpc.CallOption) (*Void, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Void)
 	err := c.cc.Invoke(ctx, PublicService_UpdatePublic_FullMethodName, in, out, cOpts...)
@@ -99,9 +99,9 @@ func (c *publicServiceClient) GetAllPublics(ctx context.Context, in *Filter, opt
 // All implementations must embed UnimplementedPublicServiceServer
 // for forward compatibility
 type PublicServiceServer interface {
-	CreatePublic(context.Context, *Public) (*Void, error)
+	CreatePublic(context.Context, *PublicCreate) (*Void, error)
 	DeletePublic(context.Context, *ById) (*Void, error)
-	UpdatePublic(context.Context, *Public) (*Void, error)
+	UpdatePublic(context.Context, *PublicCreate) (*Void, error)
 	GetByIdPublic(context.Context, *ById) (*Public, error)
 	GetAllPublics(context.Context, *Filter) (*GetAllPublic, error)
 	mustEmbedUnimplementedPublicServiceServer()
@@ -111,13 +111,13 @@ type PublicServiceServer interface {
 type UnimplementedPublicServiceServer struct {
 }
 
-func (UnimplementedPublicServiceServer) CreatePublic(context.Context, *Public) (*Void, error) {
+func (UnimplementedPublicServiceServer) CreatePublic(context.Context, *PublicCreate) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePublic not implemented")
 }
 func (UnimplementedPublicServiceServer) DeletePublic(context.Context, *ById) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePublic not implemented")
 }
-func (UnimplementedPublicServiceServer) UpdatePublic(context.Context, *Public) (*Void, error) {
+func (UnimplementedPublicServiceServer) UpdatePublic(context.Context, *PublicCreate) (*Void, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePublic not implemented")
 }
 func (UnimplementedPublicServiceServer) GetByIdPublic(context.Context, *ById) (*Public, error) {
@@ -140,7 +140,7 @@ func RegisterPublicServiceServer(s grpc.ServiceRegistrar, srv PublicServiceServe
 }
 
 func _PublicService_CreatePublic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Public)
+	in := new(PublicCreate)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func _PublicService_CreatePublic_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: PublicService_CreatePublic_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PublicServiceServer).CreatePublic(ctx, req.(*Public))
+		return srv.(PublicServiceServer).CreatePublic(ctx, req.(*PublicCreate))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -176,7 +176,7 @@ func _PublicService_DeletePublic_Handler(srv interface{}, ctx context.Context, d
 }
 
 func _PublicService_UpdatePublic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Public)
+	in := new(PublicCreate)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func _PublicService_UpdatePublic_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: PublicService_UpdatePublic_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PublicServiceServer).UpdatePublic(ctx, req.(*Public))
+		return srv.(PublicServiceServer).UpdatePublic(ctx, req.(*PublicCreate))
 	}
 	return interceptor(ctx, in, info, handler)
 }

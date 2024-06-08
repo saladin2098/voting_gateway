@@ -40,6 +40,24 @@ func NewGin(h *handlers.Handler) *gin.Engine {
 		public_vote.GET("/find-winner",h.FindWinner)
 		public_vote.GET("/by-election",h.GetAllPublicVotesByElection)
    }
+   party := r.Group("/party")
+   {
+	    party.POST("/create", h.CreateParty)
+		party.GET("/:id", h.GetPartyByID)
+		party.GET("date-slogan", h.GetAllPartiesBydate)
+		party.GET("/all",h.GetAllParties)
+		party.PUT("/update",h.UpdateParty)
+		party.DELETE("/:id",h.Deleteparty)
+   }
+   public := r.Group("/public")
+   {
+	    public.POST("/create", h.CreatePublic)
+		public.GET("/:id", h.GetPublicById)
+		public.PUT("/update",h.UpdatePublic)
+		public.DELETE("/:id",h.DeletePublic)
+		public.GET("/all",h.GetAllPublic)
+		public.GET("/filter",h.GetPublicFilter)
+   }
 
     return r
 }

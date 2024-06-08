@@ -458,6 +458,240 @@ const docTemplate = `{
                 }
             }
         },
+        "/party/all": {
+            "get": {
+                "description": "Gets all Parties",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Party"
+                ],
+                "summary": "Gets all Parties",
+                "operationId": "get_all_parties",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllParty"
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to get party by ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/party/create": {
+            "post": {
+                "description": "Create party by reading from body",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Party"
+                ],
+                "summary": "Creates Party",
+                "operationId": "create_party",
+                "parameters": [
+                    {
+                        "description": "party body data",
+                        "name": "Party",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.Party"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "party created successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to create party",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/party/date-slogan": {
+            "get": {
+                "description": "Gets Party by date and slogan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Party"
+                ],
+                "summary": "Gets Party by date and slogan",
+                "operationId": "get_party_by_date_and_slogan",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Party open date",
+                        "name": "date",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Party slogan",
+                        "name": "slogan",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllParty"
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to get party by ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/party/update": {
+            "put": {
+                "description": "Updates a Party with the provided JSON data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Party"
+                ],
+                "summary": "Updates a Party",
+                "operationId": "update_party",
+                "parameters": [
+                    {
+                        "description": "Party data",
+                        "name": "Party",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.Party"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Party updated successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to update party",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/party/{id}": {
+            "get": {
+                "description": "Gets Party by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Party"
+                ],
+                "summary": "Gets Party by ID",
+                "operationId": "get_party_by_id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Party ID data",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.Party"
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to get party by ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a Party by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Party"
+                ],
+                "summary": "Deletes a Party",
+                "operationId": "delete_party",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Party ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Party deleted successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to delete party",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/public-vote/all": {
             "get": {
                 "description": "Gets all Public Votes without any filter",
@@ -698,6 +932,254 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/public/all": {
+            "get": {
+                "description": "Gets all Publics without any filter",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Gets all Publics",
+                "operationId": "get_all_public",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllPublic"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to get all publics",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/public/create": {
+            "post": {
+                "description": "Creates a new Public with the provided JSON data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Creates a new Public",
+                "operationId": "create_public",
+                "parameters": [
+                    {
+                        "description": "Public data",
+                        "name": "Public",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.PublicCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Public created successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to create public",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/public/filter": {
+            "get": {
+                "description": "Gets Publics by party, gender, nation, and age",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Gets Publics by filter",
+                "operationId": "get_public_filter",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Party",
+                        "name": "party",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Gender",
+                        "name": "gender",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Nation",
+                        "name": "nation",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Age",
+                        "name": "age",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllPublic"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to get publics by filter",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/public/update": {
+            "put": {
+                "description": "Updates an existing Public with the provided JSON data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Updates an existing Public",
+                "operationId": "update_public",
+                "parameters": [
+                    {
+                        "description": "Public data",
+                        "name": "Public",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.PublicCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Public updated successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to update public",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/public/{id}": {
+            "get": {
+                "description": "Gets Public by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Gets Public by ID",
+                "operationId": "get_public_by_id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Public ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.Public"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to get public by ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a Public by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Public"
+                ],
+                "summary": "Deletes a Public",
+                "operationId": "delete_public",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Public ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Public deleted successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed to delete public",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -768,6 +1250,28 @@ const docTemplate = `{
                 }
             }
         },
+        "genprotos.GetAllParty": {
+            "type": "object",
+            "properties": {
+                "partys": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/genprotos.Party"
+                    }
+                }
+            }
+        },
+        "genprotos.GetAllPublic": {
+            "type": "object",
+            "properties": {
+                "publics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/genprotos.Public"
+                    }
+                }
+            }
+        },
         "genprotos.GetAllPublicVote": {
             "type": "object",
             "properties": {
@@ -776,6 +1280,78 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/genprotos.PublicVote"
                     }
+                }
+            }
+        },
+        "genprotos.Party": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "open_date": {
+                    "type": "string"
+                },
+                "slogan": {
+                    "type": "string"
+                }
+            }
+        },
+        "genprotos.Public": {
+            "type": "object",
+            "properties": {
+                "birthday": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "nation": {
+                    "type": "string"
+                },
+                "party": {
+                    "$ref": "#/definitions/genprotos.Party"
+                }
+            }
+        },
+        "genprotos.PublicCreate": {
+            "type": "object",
+            "properties": {
+                "birthday": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "nation": {
+                    "type": "string"
+                },
+                "party": {
+                    "type": "string"
                 }
             }
         },

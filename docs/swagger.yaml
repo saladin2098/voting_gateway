@@ -42,12 +42,73 @@ definitions:
           $ref: '#/definitions/genprotos.Election'
         type: array
     type: object
+  genprotos.GetAllParty:
+    properties:
+      partys:
+        items:
+          $ref: '#/definitions/genprotos.Party'
+        type: array
+    type: object
+  genprotos.GetAllPublic:
+    properties:
+      publics:
+        items:
+          $ref: '#/definitions/genprotos.Public'
+        type: array
+    type: object
   genprotos.GetAllPublicVote:
     properties:
       publicVotes:
         items:
           $ref: '#/definitions/genprotos.PublicVote'
         type: array
+    type: object
+  genprotos.Party:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      open_date:
+        type: string
+      slogan:
+        type: string
+    type: object
+  genprotos.Public:
+    properties:
+      birthday:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      nation:
+        type: string
+      party:
+        $ref: '#/definitions/genprotos.Party'
+    type: object
+  genprotos.PublicCreate:
+    properties:
+      birthday:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      nation:
+        type: string
+      party:
+        type: string
     type: object
   genprotos.PublicVote:
     properties:
@@ -377,6 +438,162 @@ paths:
       summary: Update Election
       tags:
       - Election
+  /party/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a Party by ID
+      operationId: delete_party
+      parameters:
+      - description: Party ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Party deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Failed to delete party
+          schema:
+            type: string
+      summary: Deletes a Party
+      tags:
+      - Party
+    get:
+      consumes:
+      - application/json
+      description: Gets Party by ID
+      operationId: get_party_by_id
+      parameters:
+      - description: Party ID data
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genprotos.Party'
+        "500":
+          description: Failed to get party by ID
+          schema:
+            type: string
+      summary: Gets Party by ID
+      tags:
+      - Party
+  /party/all:
+    get:
+      consumes:
+      - application/json
+      description: Gets all Parties
+      operationId: get_all_parties
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genprotos.GetAllParty'
+        "500":
+          description: Failed to get party by ID
+          schema:
+            type: string
+      summary: Gets all Parties
+      tags:
+      - Party
+  /party/create:
+    post:
+      consumes:
+      - application/json
+      description: Create party by reading from body
+      operationId: create_party
+      parameters:
+      - description: party body data
+        in: body
+        name: Party
+        required: true
+        schema:
+          $ref: '#/definitions/genprotos.Party'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: party created successfully
+          schema:
+            type: string
+        "500":
+          description: Failed to create party
+          schema:
+            type: string
+      summary: Creates Party
+      tags:
+      - Party
+  /party/date-slogan:
+    get:
+      consumes:
+      - application/json
+      description: Gets Party by date and slogan
+      operationId: get_party_by_date_and_slogan
+      parameters:
+      - description: Party open date
+        in: query
+        name: date
+        required: true
+        type: string
+      - description: Party slogan
+        in: query
+        name: slogan
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genprotos.GetAllParty'
+        "500":
+          description: Failed to get party by ID
+          schema:
+            type: string
+      summary: Gets Party by date and slogan
+      tags:
+      - Party
+  /party/update:
+    put:
+      consumes:
+      - application/json
+      description: Updates a Party with the provided JSON data
+      operationId: update_party
+      parameters:
+      - description: Party data
+        in: body
+        name: Party
+        required: true
+        schema:
+          $ref: '#/definitions/genprotos.Party'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Party updated successfully
+          schema:
+            type: string
+        "400":
+          description: Failed to update party
+          schema:
+            type: string
+      summary: Updates a Party
+      tags:
+      - Party
   /public-vote/{id}:
     get:
       consumes:
@@ -538,4 +755,170 @@ paths:
       summary: Updates a Public Vote
       tags:
       - Public-Votes
+  /public/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a Public by ID
+      operationId: delete_public
+      parameters:
+      - description: Public ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Public deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Failed to delete public
+          schema:
+            type: string
+      summary: Deletes a Public
+      tags:
+      - Public
+    get:
+      consumes:
+      - application/json
+      description: Gets Public by ID
+      operationId: get_public_by_id
+      parameters:
+      - description: Public ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genprotos.Public'
+        "400":
+          description: Failed to get public by ID
+          schema:
+            type: string
+      summary: Gets Public by ID
+      tags:
+      - Public
+  /public/all:
+    get:
+      consumes:
+      - application/json
+      description: Gets all Publics without any filter
+      operationId: get_all_public
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genprotos.GetAllPublic'
+        "400":
+          description: Failed to get all publics
+          schema:
+            type: string
+      summary: Gets all Publics
+      tags:
+      - Public
+  /public/create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new Public with the provided JSON data
+      operationId: create_public
+      parameters:
+      - description: Public data
+        in: body
+        name: Public
+        required: true
+        schema:
+          $ref: '#/definitions/genprotos.PublicCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Public created successfully
+          schema:
+            type: string
+        "400":
+          description: Failed to create public
+          schema:
+            type: string
+      summary: Creates a new Public
+      tags:
+      - Public
+  /public/filter:
+    get:
+      consumes:
+      - application/json
+      description: Gets Publics by party, gender, nation, and age
+      operationId: get_public_filter
+      parameters:
+      - description: Party
+        in: query
+        name: party
+        required: true
+        type: string
+      - description: Gender
+        in: query
+        name: gender
+        required: true
+        type: string
+      - description: Nation
+        in: query
+        name: nation
+        required: true
+        type: string
+      - description: Age
+        in: query
+        name: age
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/genprotos.GetAllPublic'
+        "400":
+          description: Failed to get publics by filter
+          schema:
+            type: string
+      summary: Gets Publics by filter
+      tags:
+      - Public
+  /public/update:
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing Public with the provided JSON data
+      operationId: update_public
+      parameters:
+      - description: Public data
+        in: body
+        name: Public
+        required: true
+        schema:
+          $ref: '#/definitions/genprotos.PublicCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Public updated successfully
+          schema:
+            type: string
+        "400":
+          description: Failed to update public
+          schema:
+            type: string
+      summary: Updates an existing Public
+      tags:
+      - Public
 swagger: "2.0"

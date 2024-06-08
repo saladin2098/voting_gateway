@@ -20,11 +20,15 @@ func NewClients() *Clients {
 	if err!=nil{
         slog.Error("error:",err)
     }
+	conn2,err := grpc.NewClient("localhost:8083",grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err!=nil{
+        slog.Error("error:",err)
+    }
 	clientS := pb.NewCandidateServiceClient(conn)
 	clientE := pb.NewElectionServiceClient(conn)
 	publicVoteS := pb.NewPublicVoteServiceClient(conn)
-	publicS := pb.NewPublicServiceClient(conn)
-	partyS := pb.NewPartyServiceClient(conn)
+	publicS := pb.NewPublicServiceClient(conn2)
+	partyS := pb.NewPartyServiceClient(conn2)
 	return &Clients{
 		CandidateClient: clientS,
         ElectionClient: clientE,
